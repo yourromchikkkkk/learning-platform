@@ -1,5 +1,6 @@
 'use client';
 
+import { ROUTES_PATH } from '@/lib/const';
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 import {
@@ -22,7 +23,8 @@ const SidebarItem = ({
   const router = useRouter();
 
   const isActive =
-    (pathname === '/' && href === '/') ||
+    (pathname === ROUTES_PATH.Dashboard &&
+      href === ROUTES_PATH.Dashboard) ||
     pathname === href ||
     pathname?.startsWith(`${href}/`);
 
