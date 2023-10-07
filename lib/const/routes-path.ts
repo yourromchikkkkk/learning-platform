@@ -4,6 +4,7 @@ enum ROUTES_PATH {
   Teacher = '/teacher',
   TeacherCourses = '/teacher/courses',
   TeacherAnalytics = '/teacher/analytics',
+  TeacherCreateCourse = '/teacher/create',
 }
 
 export default ROUTES_PATH;
