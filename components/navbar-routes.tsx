@@ -12,8 +12,7 @@ const NavbarRoutes = () => {
   const isTeacherPage = pathname?.startsWith(
     ROUTES_PATH.Teacher,
   );
-  const isPlayerPage =
-    pathname?.includes('/chapter');
+  const isPlayerPage = pathname?.includes('/chapter');
 
   return (
     <div className="flex gap-x-2 ml-auto">
@@ -31,9 +30,7 @@ const NavbarRoutes = () => {
           </Button>
         </Link>
       )}
-      <UserButton
-        afterSignOutUrl={ROUTES_PATH.Dashboard}
-      />
+      <UserButton afterSignOutUrl={ROUTES_PATH.Dashboard} />
     </div>
   );
 };

@@ -13,14 +13,12 @@ const CourseDataPage = async ({
 }) => {
   const { userId } = auth();
 
-  if (!userId)
-    return redirect(ROUTES_PATH.Browse);
+  if (!userId) return redirect(ROUTES_PATH.Browse);
 
   const course = await db.course.findFirst({
     where: { id: params.courseId },
   });
-  if (!course)
-    return redirect(ROUTES_PATH.Browse);
+  if (!course) return redirect(ROUTES_PATH.Browse);
 
   const requiredFields = [
     course.title,
@@ -52,9 +50,7 @@ const CourseDataPage = async ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
         <div>
           <div className="flex items-center gap-x-2">
-            <IconBadge
-              icon={LayoutDashboardIcon}
-            />
+            <IconBadge icon={LayoutDashboardIcon} />
             <h2 className="text-xl">
               Customize your course
             </h2>

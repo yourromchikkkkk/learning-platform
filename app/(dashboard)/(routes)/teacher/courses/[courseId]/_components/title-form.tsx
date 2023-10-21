@@ -36,8 +36,7 @@ const TitleForm: React.FC<ITitleForm> = ({
   initialData,
   courseId,
 }) => {
-  const [isEditing, setIsEditing] =
-    useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
   const toggleEdit = useCallback(
@@ -45,24 +44,19 @@ const TitleForm: React.FC<ITitleForm> = ({
     [],
   );
 
-  const form = useForm<
-    z.infer<typeof formSchema>
-  >({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { ...initialData },
   });
 
-  const { isSubmitting, isValid } =
-    form.formState;
+  const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (
     value: z.infer<typeof formSchema>,
   ) => {
     try {
       console.log('value', value);
-      await axios.patch(
-        `/api/courses/${courseId}`,
-      );
+      await axios.patch(`/api/courses/${courseId}`);
       toggleEdit();
       toast.success('Course updated');
       router.refresh();
@@ -76,10 +70,7 @@ const TitleForm: React.FC<ITitleForm> = ({
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Course Title
-        <Button
-          onClick={toggleEdit}
-          variant="ghost"
-        >
+        <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
@@ -91,9 +82,7 @@ const TitleForm: React.FC<ITitleForm> = ({
         </Button>
       </div>
       {!isEditing && (
-        <p className="text-sm mt-2">
-          {initialData.title}
-        </p>
+        <p className="text-sm mt-2">{initialData.title}</p>
       )}
       {isEditing && (
         <Form {...form}>
@@ -119,9 +108,7 @@ const TitleForm: React.FC<ITitleForm> = ({
             />
             <div className="flex items-center gap-x-2">
               <Button
-                disabled={
-                  !isValid || isSubmitting
-                }
+                disabled={!isValid || isSubmitting}
                 type="submit"
               >
                 Save

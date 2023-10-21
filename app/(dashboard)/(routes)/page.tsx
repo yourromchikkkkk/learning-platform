@@ -5,9 +5,7 @@ export default function Home() {
   return (
     <div>
       <p>This is protected page</p>
-      <UserButton
-        afterSignOutUrl={ROUTES_PATH.Dashboard}
-      />
+      <UserButton afterSignOutUrl={ROUTES_PATH.Dashboard} />
     </div>
   );
 }

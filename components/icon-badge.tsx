@@ -45,9 +45,7 @@ const iconVariants = cva('', {
 type WrapperVariantProps = VariantProps<
   typeof wrapperVariants
 >;
-type IconVariantProps = VariantProps<
-  typeof iconVariants
->;
+type IconVariantProps = VariantProps<typeof iconVariants>;
 
 interface IconBadgeProps
   extends WrapperVariantProps,
@@ -61,15 +59,9 @@ const IconBadge: React.FC<IconBadgeProps> = ({
   size,
 }) => {
   return (
-    <div
-      className={cn(
-        wrapperVariants({ variant, size }),
-      )}
-    >
+    <div className={cn(wrapperVariants({ variant, size }))}>
       <Icon
-        className={cn(
-          iconVariants({ variant, size }),
-        )}
+        className={cn(iconVariants({ variant, size }))}
       />
     </div>
   );

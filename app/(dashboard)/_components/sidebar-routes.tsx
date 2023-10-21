@@ -9,10 +9,7 @@ import {
 } from 'lucide-react';
 import SidebarItem from './sidebar-item';
 import { usePathname } from 'next/navigation';
-import {
-  ROUTES_NAME,
-  ROUTES_PATH,
-} from '@/lib/const';
+import { ROUTES_NAME, ROUTES_PATH } from '@/lib/const';
 
 const guestRoutes = [
   {
@@ -43,9 +40,7 @@ const teacherRoutes = [
 const SidebarRoutes = () => {
   const pathname = usePathname();
 
-  const routes = pathname.includes(
-    ROUTES_PATH.Teacher,
-  )
+  const routes = pathname.includes(ROUTES_PATH.Teacher)
     ? teacherRoutes
     : guestRoutes;
 
