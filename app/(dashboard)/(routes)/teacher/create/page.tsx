@@ -42,7 +42,6 @@ const CreateCoursePage = () => {
     value: z.infer<typeof formSchema>,
   ) => {
     try {
-      console.log('value', value);
       const response = await axios.post(
         '/api/courses',
         value,

@@ -55,8 +55,7 @@ const TitleForm: React.FC<ITitleForm> = ({
     value: z.infer<typeof formSchema>,
   ) => {
     try {
-      console.log('value', value);
-      await axios.patch(`/api/courses/${courseId}`);
+      await axios.patch(`/api/courses/${courseId}`, value);
       toggleEdit();
       toast.success('Course updated');
       router.refresh();
