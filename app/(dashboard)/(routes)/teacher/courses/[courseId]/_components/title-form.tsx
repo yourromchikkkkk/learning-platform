@@ -18,11 +18,10 @@ import { Button } from '@/components/ui/button';
 import { PencilIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { Course } from '@prisma/client';
 
 interface ITitleForm {
-  initialData: {
-    title: string;
-  };
+  initialData: Course;
   courseId: string;
 }
 
