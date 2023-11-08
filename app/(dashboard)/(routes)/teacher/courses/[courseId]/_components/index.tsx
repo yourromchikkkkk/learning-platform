@@ -1,6 +1,7 @@
 import {
   Attachment,
   Category,
+  Chapter,
   Course,
 } from '@prisma/client';
 import IconBadge from '@/components/icon-badge';
@@ -16,9 +17,13 @@ import ImageForm from './image-form';
 import CategoryForm from './category-form';
 import PriceForm from './price-form';
 import AttachmentFrom from './attachment-form';
+import ChaptersForm from './chapters-form';
 
 interface IEditCourseForm {
-  course: Course & { attachments: Attachment[] };
+  course: Course & {
+    attachments: Attachment[];
+    chapters: Chapter[];
+  };
   categories: Category[];
 }
 
@@ -59,7 +64,10 @@ const EditCourseForm: React.FC<IEditCourseForm> = ({
           <IconBadge icon={ListChecks} />
           <h2 className="text-xl">Course chapters</h2>
         </div>
-        <div>TODO: CHAPTERS</div>
+        <ChaptersForm
+          initialData={course}
+          courseId={course.id}
+        />
       </div>
       <div>
         <div className="flex items-center gap-x-2">

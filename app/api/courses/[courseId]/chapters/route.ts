@@ -6,7 +6,7 @@ import {
   findCourseOwner,
 } from '@/server';
 
-export async function PSOT(
+export async function POST(
   request: Request,
   { params }: { params: { courseId: string } },
 ) {

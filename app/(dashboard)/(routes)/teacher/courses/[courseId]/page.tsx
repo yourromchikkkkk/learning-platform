@@ -1,8 +1,11 @@
 import { ROUTES_PATH } from '@/lib/const';
-import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import EditCourseForm from './_components';
+import {
+  findAllCategories,
+  findCourseDataByIdAndOwner,
+} from '@/server';
 
 const CourseDataPage = async ({
   params,
@@ -13,17 +16,14 @@ const CourseDataPage = async ({
 
   if (!userId) return redirect(ROUTES_PATH.Browse);
 
-  const course = await db.course.findFirst({
-    where: { id: params.courseId },
-    include: {
-      attachments: { orderBy: { createdAt: 'desc' } },
-    },
+  const course = await findCourseDataByIdAndOwner({
+    courseId: params.courseId,
+    ownerId: userId,
   });
+
   if (!course) return redirect(ROUTES_PATH.Browse);
 
-  const categories = await db.category.findMany({
-    orderBy: { name: 'asc' },
-  });
+  const categories = await findAllCategories();
 
   const requiredFields = [
     course.title,
@@ -31,6 +31,7 @@ const CourseDataPage = async ({
     course.imageUrl,
     course.price,
     course.categoryId,
+    course.chapters.some((chapter) => chapter.isPublished),
   ];
 
   const totalFields = requiredFields.length;
