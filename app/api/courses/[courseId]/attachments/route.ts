@@ -1,6 +1,10 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
+import {
+  findCourseOwner,
+  createAttachment,
+} from '@/server';
 
 export async function POST(
   request: Request,
@@ -15,8 +19,9 @@ export async function POST(
       });
     }
 
-    const courseOwner = await db.course.findUnique({
-      where: { id: params.courseId, userId: userId },
+    const courseOwner = await findCourseOwner({
+      courseId: params.courseId,
+      ownerId: userId,
     });
 
     if (!courseOwner) {
@@ -25,12 +30,10 @@ export async function POST(
       });
     }
 
-    const attachments = await db.attachment.create({
-      data: {
-        url,
-        name: url.split('/').pop(),
-        courseId: params.courseId,
-      },
+    const attachments = await createAttachment({
+      url,
+      name: url.split('/').pop(),
+      courseId: params.courseId,
     });
 
     return NextResponse.json(attachments);

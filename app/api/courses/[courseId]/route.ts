@@ -1,6 +1,6 @@
-import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
+import { updateCourseByIdAndOwner } from '@/server';
 
 export async function PATCH(
   req: Request,
@@ -17,9 +17,10 @@ export async function PATCH(
       });
     }
 
-    const course = await db.course.update({
-      where: { id: courseId, userId },
-      data: { ...value },
+    const course = await updateCourseByIdAndOwner({
+      id: courseId,
+      userId,
+      ...value,
     });
 
     return NextResponse.json(course);

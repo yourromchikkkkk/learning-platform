@@ -1,6 +1,10 @@
-import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
+import {
+  createChapter,
+  findFirstChapter,
+  findCourseOwner,
+} from '@/server';
 
 export async function PSOT(
   request: Request,
@@ -16,8 +20,9 @@ export async function PSOT(
       });
     }
 
-    const courseOwner = await db.course.findUnique({
-      where: { id: params.courseId, userId: userId },
+    const courseOwner = await findCourseOwner({
+      courseId: params.courseId,
+      ownerId: userId,
     });
 
     if (!courseOwner) {
@@ -26,21 +31,18 @@ export async function PSOT(
       });
     }
 
-    const lastChapter = await db.chapter.findFirst({
-      where: { courseId: params.courseId },
-      orderBy: { position: 'desc' },
-    });
+    const lastChapter = await findFirstChapter(
+      params.courseId,
+    );
 
     const newPosotion = lastChapter
       ? lastChapter.position + 1
       : 1;
 
-    const chapter = await db.chapter.create({
-      data: {
-        title: '',
-        courseId: params.courseId,
-        position: newPosotion,
-      },
+    const chapter = await createChapter({
+      title,
+      courseId: params.courseId,
+      position: newPosotion,
     });
 
     return NextResponse.json(chapter);

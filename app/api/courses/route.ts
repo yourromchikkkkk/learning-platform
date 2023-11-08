@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
-import { db } from '@/lib/db';
+import { createCourse } from '@/server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,12 +13,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const course = await db.course.create({
-      data: {
-        userId,
-        title,
-      },
-    });
+    const course = await createCourse({ userId, title });
 
     return NextResponse.json(course);
   } catch (error) {
